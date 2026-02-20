@@ -175,8 +175,7 @@ pymobiledevice3 usbmux forward 27042 27042
 ### 4️⃣ Connect with Objection
 
 ```bash
-objection -N -h 127.0.0.1 -p 27042 explore
-```
+Objection -g bundleid explore```
 
 Or using Frida CLI:
 
