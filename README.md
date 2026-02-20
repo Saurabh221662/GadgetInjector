@@ -1,3 +1,4 @@
+
 # 🚀 Gadgetinjector
 
 **Gadgetinjector** is a modern, production-ready **Frida Gadget injector for iOS 17 / iOS 18 IPAs**, designed to work seamlessly with **Objection in listen mode**.
@@ -41,74 +42,144 @@ Install the required Python packages:
 
 ```bash
 pip install lief frida frida-tools pymobiledevice3
-Dependency	Purpose
-lief	Mach-O parsing & injection (required)
-frida	Frida version detection
-frida-tools	Frida CLI compatibility
-pymobiledevice3	USB port forwarding
-🛠 System Tools
+````
+| Dependency        | Purpose                                   |
+| ----------------- | ----------------------------------------- |
+| `lief`            | Mach-O parsing & injection (**required**) |
+| `frida`           | Frida version detection                   |
+| `frida-tools`     | Frida CLI compatibility                   |
+| `pymobiledevice3` | USB port forwarding                       |
+
+---
+
+### 🛠 System Tools
+
 Install Xcode command-line tools:
 
+```bash
 xcode-select --install
-📱 Optional Tools (For Installing IPAs)
-You will need one of the following tools to install the re-signed IPA:
+```
 
-Sideloadly (GUI – easiest)
+---
 
-AltStore
+### 📱 Optional Tools (For Installing IPAs)
 
-Xcode
+You will need **one** of the following tools to install the re-signed IPA:
 
-ios-deploy
+* **Sideloadly** (GUI – easiest)
+* **AltStore**
+* **Xcode**
+* **ios-deploy**
 
-🚀 Installation
+---
+
+## 🚀 Installation
+
 Clone the repository:
 
+```bash
 git clone https://github.com/yourusername/Gadgetinjector.git
 cd Gadgetinjector
+```
+
 Make the script executable:
 
+```bash
 chmod +x gadget_injector.py
-▶️ Usage
-Basic Injection
+```
+
+---
+
+## ▶️ Usage
+
+### Basic Injection
+
+```bash
 python3 gadget_injector.py MyApp.ipa
-Output:
+```
 
+**Output:**
+
+```text
 MyApp-frida-listen.ipa
-Specify Frida Version
+```
+
+---
+
+### Specify Frida Version
+
+```bash
 python3 gadget_injector.py MyApp.ipa --frida-version 17.6.2
-Target Specific App (Multi-IPA)
+```
+
+---
+
+### Target Specific App (Multi-IPA)
+
+```bash
 python3 gadget_injector.py MyApp.ipa --bundle-id com.example.app
-Debug Mode
+```
+
+---
+
+### Debug Mode
+
+```bash
 python3 gadget_injector.py MyApp.ipa --debug
-Suppress Banner (CI / Automation)
+```
+
+---
+
+### Suppress Banner (CI / Automation)
+
+```bash
 python3 gadget_injector.py MyApp.ipa --no-banner
-📲 After Injection (Required Steps)
-1️⃣ Re-sign the IPA
-Choose one method:
+```
 
-Sideloadly (GUI – easiest)
+---
 
-AltStore
+## 📲 After Injection (Required Steps)
 
-Xcode
+### 1️⃣ Re-sign the IPA
 
-CLI tools (zsign, isign, rcodesign)
+Choose **one** method:
 
-🔐 Sign all embedded dylibs with the same Team ID
-❌ Do NOT add entitlements to FridaGadget.dylib
+* **Sideloadly** (GUI – easiest)
+* **AltStore**
+* **Xcode**
+* CLI tools (`zsign`, `isign`, `rcodesign`)
 
-2️⃣ Launch App (Paused – Recommended)
+> 🔐 Sign **all embedded dylibs** with the **same Team ID**
+> ❌ **Do NOT** add entitlements to `FridaGadget.dylib`
+
+---
+
+### 2️⃣ Launch App (Paused – Recommended)
+
+```bash
 xcrun devicectl device process launch \
   --device <UDID> \
   --start-stopped <bundle-id>
-3️⃣ Forward Frida Port (USB)
+```
+
+---
+
+### 3️⃣ Forward Frida Port (USB)
+
+```bash
 pymobiledevice3 usbmux forward 27042 27042
-4️⃣ Connect with Objection
+```
+
+---
+
+### 4️⃣ Connect with Objection
+
+```bash
 objection -N -h 127.0.0.1 -p 27042 explore
+```
+
 Or using Frida CLI:
 
+```bash
 frida -H 127.0.0.1:27042 -n MyApp
-🧑‍💻 Author
-Saurabh
-📧 saurabh77789@gmail.com
+```
